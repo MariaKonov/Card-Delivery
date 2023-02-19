@@ -3,6 +3,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -30,9 +31,13 @@ public class CardTest {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(patten));
     }
 
+    @BeforeEach
+    void setup (){
+        open("http://localhost:9999");
+    }
+
     @Test
     void CardDeliveryTest() {
-        open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Волгоград");
         String currentDate = Date(3, "dd.MM.yyyy");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
